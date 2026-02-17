@@ -12,7 +12,7 @@ The existing built-in search agent on the Willhaben website is not efficient in 
 ### Start-Up
 
 To start the development environment, we need to start:
-- the firebase emulator's: `firebase emulators:start`
+- the firebase emulator's: `firebase emulators:start --import=./emulator-data --export-on-exit=./emulator-data`
 - the react vite frontend: `cd frontend && npm run dev`
 
 ### Deployment

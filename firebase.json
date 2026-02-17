@@ -58,7 +58,7 @@
   "auth": {
     "providers": {
       "googleSignIn": {
-        "oAuthBrandDisplayName": "willhaben-advanced-search-agent",
+        "oAuthBrandDisplayName": "Willhaben Advanced Search Agent",
         "supportEmail": "oseierl@gmail.com"
       }
     }
