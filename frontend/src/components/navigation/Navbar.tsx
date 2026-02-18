@@ -2,12 +2,16 @@ import {AppBar, Avatar, Box, Button, Container, IconButton, Toolbar, Tooltip} fr
 import React from 'react';
 import Logo from '../../assets/logo.png';
 import { pages } from "../../config/pages.ts";
+import { Link } from "react-router-dom";
+import {useAuth} from "../../hooks/useAuth.ts";
 
 interface Props {
     showButtons: boolean;
 }
 
 export const Navbar: React.FC<Props> = ({showButtons}) => {
+    const {user} = useAuth();
+
     return (
         <AppBar position="static">
             <Container>
@@ -33,6 +37,8 @@ export const Navbar: React.FC<Props> = ({showButtons}) => {
                             <Button
                                 key={page.name}
                                 sx={{my: 2, color: 'white', display: 'block'}}
+                                component={Link}
+                                to={page.route}
                             >
                                 {page.name}
                             </Button>
@@ -41,9 +47,9 @@ export const Navbar: React.FC<Props> = ({showButtons}) => {
 
                     {/* USER SETTINGS SECTION */}
                     <Box sx={{flexGrow: 0}}>
-                        <Tooltip title="Open settings">
-                            <IconButton sx={{p: 0}}>
-                                <Avatar alt="Profilbild" src="/static/images/avatar/2.jpg"/>
+                        <Tooltip title="Profil öffnen">
+                            <IconButton sx={{p: 0}} component={Link} to="/profile">
+                                <Avatar alt="Profilbild" src={user?.photoURL || ""}/>
                             </IconButton>
                         </Tooltip>
                     </Box>

@@ -6,6 +6,7 @@ import {AuthProvider} from "../context/AuthProvider.tsx";
 import {InfoProvider} from "../context/InfoProvider.tsx";
 import {MainLayout} from "../components/layouts/MainLayout.tsx";
 import {SmallCenterLayout} from "../components/layouts/SmallCenterLayout.tsx";
+import Profile from './routes/Profile.tsx';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                         <Route element={<MainLayout/>}>
                             <Route element={<ProtectedRoute/>}>
                                 <Route path="/" element={<Home/>}/>
+                                <Route path="/profile" element={<Profile/>}/>
                             </Route>
                         </Route>
                         <Route path="*" element={<Navigate to="/" replace/>}/>

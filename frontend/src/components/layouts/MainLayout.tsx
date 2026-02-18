@@ -21,7 +21,7 @@ export const MainLayout: React.FC = () => {
         <Container sx={{p: 0, mt: [0, 3]}}>
             <Navbar showButtons={isDesktop}/>
 
-            <Paper sx={{p: 2, mt: [1, 3]}}>
+            <Paper sx={{p: 4, mt: [1, 3]}}>
                 <Outlet/>
             </Paper>
 

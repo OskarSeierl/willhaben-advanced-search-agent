@@ -9,18 +9,18 @@ import {useInfo} from '../../hooks/useInfo.ts';
 const Welcome: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const {showError} = useInfo();
+    const {showError, showSuccess} = useInfo();
 
     const handleGoogleLogin = async () => {
         setLoading(true);
-
         try {
             const provider = new GoogleAuthProvider();
             await signInWithPopup(auth, provider);
+            showSuccess("Anmeldung erfolgreich.")
             navigate('/');
         } catch (err) {
             const error = err as { code?: string; message?: string };
-            showError(error.message || 'Failed to sign in with Google');
+            showError(error.message || 'Anmeldung mit Google fehlgeschlagen. Bitte versuchen Sie es erneut.');
             setLoading(false);
         }
     };
