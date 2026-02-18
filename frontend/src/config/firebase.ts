@@ -2,12 +2,13 @@ import { initializeApp } from 'firebase/app';
 import {connectAuthEmulator, getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: "AIzaSyAP9UZMRFHfqiGPH1nUko3dTAqEJFV_nz0",
+  authDomain: "willhaben-advanced-agent.firebaseapp.com",
+  projectId: "willhaben-advanced-agent",
+  storageBucket: "willhaben-advanced-agent.firebasestorage.app",
+  messagingSenderId: "274233537078",
+  appId: "1:274233537078:web:0e66ec5d533cda57cc5e97",
+  measurementId: "G-8KY87QLW21"
 };
 
 const app = initializeApp(firebaseConfig);
