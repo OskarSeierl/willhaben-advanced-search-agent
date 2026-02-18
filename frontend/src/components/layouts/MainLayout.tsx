@@ -24,7 +24,9 @@ export const MainLayout: React.FC = () => {
                 <Outlet/>
             </Box>
 
-            <Footer/>
+            <Box sx={{mt: 3}}>
+                <Footer/>
+            </Box>
 
             {!isDesktop && (
                 <BottomNavbar activeButtonIndex={activeIndex} onClick={setActiveIndex}/>
