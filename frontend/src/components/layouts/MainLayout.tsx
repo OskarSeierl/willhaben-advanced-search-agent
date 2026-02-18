@@ -1,6 +1,7 @@
 import {
     Box,
     Container,
+    Paper,
     useMediaQuery,
     useTheme
 } from "@mui/material";
@@ -20,9 +21,9 @@ export const MainLayout: React.FC = () => {
         <Container sx={{p: 0, mt: [0, 3]}}>
             <Navbar showButtons={isDesktop}/>
 
-            <Box sx={{bgcolor: '#fff', p: 2}}>
+            <Paper sx={{p: 2, mt: [1, 3]}}>
                 <Outlet/>
-            </Box>
+            </Paper>
 
             <Box sx={{mt: 3}}>
                 <Footer/>

@@ -1,0 +1,46 @@
+import React, {useState} from 'react';
+import {signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
+import {auth} from '../../config/firebase.ts';
+import {useNavigate} from 'react-router-dom';
+import {Box, Button, Typography} from "@mui/material";
+import GoogleIcon from '@mui/icons-material/Google';
+import {useInfo} from '../../hooks/useInfo.ts';
+
+const Welcome: React.FC = () => {
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const {showError} = useInfo();
+
+    const handleGoogleLogin = async () => {
+        setLoading(true);
+
+        try {
+            const provider = new GoogleAuthProvider();
+            await signInWithPopup(auth, provider);
+            navigate('/');
+        } catch (err) {
+            const error = err as { code?: string; message?: string };
+            showError(error.message || 'Failed to sign in with Google');
+            setLoading(false);
+        }
+    };
+
+    return (
+        <Box>
+            <Typography variant="h5">Willkommen!</Typography>
+            <Typography>Bei dem schnellsten Such-Agenten in Österreich.</Typography>
+            <Button
+                onClick={handleGoogleLogin}
+                loading={loading}
+                variant="contained"
+                startIcon={<GoogleIcon/>}
+                sx={{mt: 3}}
+            >
+                Mit Google fortfahren
+            </Button>
+        </Box>
+    );
+};
+
+export default Welcome;
+

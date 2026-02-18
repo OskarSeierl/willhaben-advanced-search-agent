@@ -1,24 +1,30 @@
 import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 import {ProtectedRoute} from '../components/guards/ProtectedRoute.tsx';
-import Login from './routes/Login.tsx';
+import Welcome from './routes/Welcome.tsx';
 import Home from './routes/Home.tsx';
 import {AuthProvider} from "../context/AuthProvider.tsx";
+import {InfoProvider} from "../context/InfoProvider.tsx";
 import {MainLayout} from "../components/layouts/MainLayout.tsx";
+import {SmallCenterLayout} from "../components/layouts/SmallCenterLayout.tsx";
 
 function App() {
     return (
         <Router>
-            <AuthProvider>
-                <Routes>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route element={<MainLayout/>}>
-                        <Route element={<ProtectedRoute/>}>
-                            <Route path="/" element={<Home/>}/>
+            <InfoProvider>
+                <AuthProvider>
+                    <Routes>
+                        <Route element={<SmallCenterLayout/>}>
+                            <Route path="/welcome" element={<Welcome />} />
                         </Route>
-                    </Route>
-                    <Route path="*" element={<Navigate to="/" replace/>}/>
-                </Routes>
-            </AuthProvider>
+                        <Route element={<MainLayout/>}>
+                            <Route element={<ProtectedRoute/>}>
+                                <Route path="/" element={<Home/>}/>
+                            </Route>
+                        </Route>
+                        <Route path="*" element={<Navigate to="/" replace/>}/>
+                    </Routes>
+                </AuthProvider>
+            </InfoProvider>
         </Router>
     );
 }
