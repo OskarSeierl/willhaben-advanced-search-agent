@@ -19,6 +19,10 @@ To start the development environment, we need to start:
 
 ### Deployment
 
-To deploy the application to firebase, either
-- run `firebase deploy` from the root of the project, or
-- push the code to the `main` branch, which will trigger the GitHub Action to deploy the application to firebase.
+#### Frontend
+
+The frontend is deployed on firebase hosting automatically on every push to the main branch. Alternatively, you can deploy the frontend to firebase hosting by running `firebase deploy --only hosting` from the root of the project.
+
+#### Backend
+
+To deploy the application to firebase run `firebase deploy --only firestore,functions,auth` from the root of the project.
