@@ -15,8 +15,6 @@ export const MainLayout: React.FC = () => {
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
-    const [activeIndex, setActiveIndex] = React.useState(0);
-
     return (
         <Container sx={{p: 0, mt: [0, 3]}}>
             <Navbar showButtons={isDesktop}/>
@@ -30,7 +28,7 @@ export const MainLayout: React.FC = () => {
             </Box>
 
             {!isDesktop && (
-                <BottomNavbar activeButtonIndex={activeIndex} onClick={setActiveIndex}/>
+                <BottomNavbar/>
             )}
         </Container>
 

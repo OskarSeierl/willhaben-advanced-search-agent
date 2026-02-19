@@ -1,13 +1,16 @@
 import {BottomNavigation, BottomNavigationAction, Box} from "@mui/material";
-import React from 'react';
+import React, {useMemo} from 'react';
 import { pages } from "../../config/pages.ts";
+import {useNavigate} from "react-router-dom";
 
-interface Props {
-    activeButtonIndex: number;
-    onClick: (index: number) => void;
-}
+export const BottomNavbar: React.FC = () => {
 
-export const BottomNavbar: React.FC<Props> = ({activeButtonIndex, onClick}) => {
+    const navigate = useNavigate();
+
+    const activeIndexFromPath = useMemo(() => {
+        return 0; // TODO: Implement logic to determine active index based on current path
+    }, []);
+
     return (
         <Box sx={{
             position: 'fixed',
@@ -17,9 +20,9 @@ export const BottomNavbar: React.FC<Props> = ({activeButtonIndex, onClick}) => {
         }}>
             <BottomNavigation
                 showLabels
-                value={activeButtonIndex}
+                value={activeIndexFromPath}
                 onChange={(_event, newValue) => {
-                    onClick(newValue);
+                    navigate(pages[newValue].route);
                 }}
             >
                 {pages.map((page) => (
