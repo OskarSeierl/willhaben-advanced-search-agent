@@ -7,6 +7,7 @@ import {InfoProvider} from "../context/InfoProvider.tsx";
 import {MainLayout} from "../components/layouts/MainLayout.tsx";
 import {SmallCenterLayout} from "../components/layouts/SmallCenterLayout.tsx";
 import Profile from './routes/Profile.tsx';
+import {NotificationRoute} from "../components/middleware/NotificationRoute.tsx";
 
 function App() {
     return (
@@ -19,8 +20,10 @@ function App() {
                         </Route>
                         <Route element={<MainLayout/>}>
                             <Route element={<ProtectedRoute/>}>
-                                <Route path="/" element={<Home/>}/>
-                                <Route path="/profile" element={<Profile/>}/>
+                                <Route element={<NotificationRoute/>}>
+                                    <Route path="/" element={<Home/>}/>
+                                    <Route path="/profile" element={<Profile/>}/>
+                                </Route>
                             </Route>
                         </Route>
                         <Route path="*" element={<Navigate to="/" replace/>}/>

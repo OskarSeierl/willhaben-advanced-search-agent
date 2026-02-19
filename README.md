@@ -1,4 +1,6 @@
-# Willhaben Advanced Search Agent
+# MussHaben
+
+**The advanced willhaben search agent.**
 
 This project is a PWA web application that allows users to create search agents for specific product categories on the Willhaben website.
 Unlike the existing built-in search agent, this application notifies users of new products only in a matter of minutes instead of hours.

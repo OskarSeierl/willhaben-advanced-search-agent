@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {signOut} from 'firebase/auth';
+import {deleteUser, signOut} from 'firebase/auth';
 import {auth} from '../../config/firebase.ts';
 import {useAuth} from "../../hooks/useAuth.ts";
 import {useInfo} from "../../hooks/useInfo.ts";
@@ -18,7 +18,7 @@ import {
     Button,
     Stack,
     Paper,
-    Chip
+    Chip, Link, Dialog, DialogTitle, DialogContent, DialogActions
 } from "@mui/material";
 import {
     Email as EmailIcon,
@@ -26,14 +26,17 @@ import {
     Phone as PhoneIcon,
     Fingerprint as FingerprintIcon,
     Logout as LogoutIcon,
-    AccountCircle as AccountCircleIcon
+    AccountCircle as AccountCircleIcon,
+    Delete as DeleteIcon
 } from '@mui/icons-material';
 import packageJson from '../../../package.json';
 
 const Profile: React.FC = () => {
     const {user} = useAuth();
     const navigate = useNavigate();
-    const {showError} = useInfo();
+    const {showSuccess, showError} = useInfo();
+
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
     const handleLogout = async () => {
         try {
@@ -41,6 +44,20 @@ const Profile: React.FC = () => {
             navigate('/welcome');
         } catch (error) {
             showError(`Abmelden fehlgeschlagen: ${error}.`);
+        }
+    };
+
+    const handleDeleteAccount = async () => {
+        try {
+            if (user) {
+                await deleteUser(user);
+                showSuccess('Account erfolgreich gelöscht.');
+                navigate('/welcome');
+            }
+        } catch (error) {
+            showError(`Account löschen fehlgeschlagen: ${error}.`);
+        } finally {
+            setDeleteDialogOpen(false);
         }
     };
 
@@ -150,18 +167,52 @@ const Profile: React.FC = () => {
                     <Typography variant="h6" gutterBottom >
                         Aktionen
                     </Typography>
+                    <Stack direction="row" spacing={2}>
+                        <Button
+                            variant="contained"
+                            color="error"
+                            startIcon={<LogoutIcon/>}
+                            onClick={handleLogout}
+                        >
+                            Abmelden
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="error"
+                            startIcon={<DeleteIcon/>}
+                            onClick={() => setDeleteDialogOpen(true)}
+                        >
+                            Account löschen
+                        </Button>
+                    </Stack>
+                </CardContent>
+            </Card>
 
+            <Dialog open={deleteDialogOpen}>
+                <DialogTitle>Account wirklich löschen?</DialogTitle>
+                <DialogContent>
+                    <Typography variant="body1">
+                        Diese Aktion kann nicht rückgängig gemacht werden. Alle Ihre Daten gehen verloren.
+                    </Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={() => setDeleteDialogOpen(false)}
+                    >
+                        Abbrechen
+                    </Button>
                     <Button
                         variant="contained"
                         color="error"
-                        startIcon={<LogoutIcon/>}
-                        onClick={handleLogout}
-                        size="large"
+                        startIcon={<DeleteIcon/>}
+                        onClick={handleDeleteAccount}
                     >
-                        Abmelden
+                        Löschen
                     </Button>
-                </CardContent>
-            </Card>
+                </DialogActions>
+            </Dialog>
 
             <Paper
                 elevation={0}
@@ -172,9 +223,10 @@ const Profile: React.FC = () => {
                 }}
             >
                 <Typography variant="body2" color="text.secondary">
-                    Willhaben Advanced Search Agent
+                    MussHaben
                 </Typography>
                 <Typography variant="caption" color="text.secondary">
+                    <Link href="https://github.com/OskarSeierl/MussHaben">https://github.com/OskarSeierl/MussHaben</Link> |
                     Version {packageJson.version}
                 </Typography>
             </Paper>
