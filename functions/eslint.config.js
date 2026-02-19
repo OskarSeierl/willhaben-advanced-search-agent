@@ -58,8 +58,10 @@ export default [
             "sibling",
             "index",
           ],
-          alphabeticalOrder: true,
-          caseInsensitive: true,
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
         },
       ],
 
