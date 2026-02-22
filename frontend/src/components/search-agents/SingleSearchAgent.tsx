@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import {useUserQueries} from "../../hooks/useUserQueries.ts";
 import {useInfo} from "../../hooks/useInfo.ts";
 import { Link } from 'react-router-dom';
+import {useCategories} from "../../hooks/useCategories.ts";
 
 interface Props {
     data: SavedSearchQuery;
@@ -14,6 +15,7 @@ interface Props {
 export const SingleSearchAgent: React.FC<Props> = ({data}) => {
     const {deleteQuery} = useUserQueries();
     const {showError, showSuccess} = useInfo();
+    const {categoriesObject, loading} = useCategories();
 
     const handleAgentDelete = async () => {
         try {
@@ -31,13 +33,13 @@ export const SingleSearchAgent: React.FC<Props> = ({data}) => {
                 id={`${data.id}-header`}
             >
                 <Grid container sx={{width: "100%"}}>
-                    <Grid size="grow">
-                        <Typography>Kategorie: {data.category}</Typography>
+                    <Grid size={6}>
+                        <Typography>Kategorie: {loading ? <em>lädt...</em> : categoriesObject[data.category].name}</Typography>
                     </Grid>
-                    <Grid size="grow">
+                    <Grid size={3}>
                         <Typography>Keyword: {data.keyword}</Typography>
                     </Grid>
-                    <Grid size="grow">
+                    <Grid size={3}>
                         <Typography>Preis-Spanne: {data.minPrice || "__"}€ - {data.maxPrice || "__"}€</Typography>
                     </Grid>
                 </Grid>

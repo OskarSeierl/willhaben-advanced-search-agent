@@ -10,11 +10,11 @@ import {
     updateDoc
 } from "firebase/firestore";
 import type {NewQueryData, SavedSearchQuery} from "../types/query.types.ts";
-import { UserQueriesContext } from "./UserQueriesContext.ts";
+import {UserQueriesContext} from "./UserQueriesContext.ts";
 import React, {useEffect, useState} from "react";
 import {db} from "../config/firebase.ts";
 import {useAuth} from "../hooks/useAuth.ts";
-import { Outlet } from "react-router-dom";
+import {Outlet} from "react-router-dom";
 
 const getUserQueriesRef = (userId: string) => collection(db, 'users', userId, 'queries');
 const getUserQueryRef = (userId: string, queryId: string) => doc(db, 'users', userId, 'queries', queryId);
@@ -51,7 +51,7 @@ export const UserQueriesProvider: React.FC = () => {
 
     const addQuery = async (queryData: NewQueryData) => {
         if (!user?.uid) throw new Error("Must be logged in to save a search.");
-        await addDoc(getUserQueriesRef(user.uid), { ...queryData, createdAt: serverTimestamp() });
+        await addDoc(getUserQueriesRef(user.uid), {...queryData, createdAt: serverTimestamp()});
     };
 
     const updateQuery = async (queryId: string, updatedData: Partial<NewQueryData>) => {

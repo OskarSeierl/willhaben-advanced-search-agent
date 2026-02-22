@@ -1,31 +1,12 @@
-import {useState, useEffect} from "react";
-import type {Category} from "../types/category.types";
-import {getCategories} from "../config/api.ts";
+import {useContext} from "react";
+import {CategoriesContext} from "../context/CategoriesContext.ts";
+import type {CategoriesContextType} from "../types/category.types.ts";
 
-/**
- * Custom hook to fetch Willhaben categories
- * @returns Object containing categories, loading state, and error
- */
-export function useCategories() {
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<Error | null>(null);
-
-    useEffect(() => {
-        (async () => {
-            try {
-                setLoading(true);
-                setError(null);
-                const response = await getCategories();
-                setCategories(response.data);
-            } catch (err) {
-                setError(err instanceof Error ? err : new Error(String(err)));
-            } finally {
-                setLoading(false);
-            }
-        })();
-    }, []);
-
-    return {categories, loading, error};
+export function useCategories(): CategoriesContextType {
+    const context = useContext(CategoriesContext);
+    if (!context) {
+        throw new Error("useCategories must be used within a CategoriesProvider");
+    }
+    return context;
 }
 

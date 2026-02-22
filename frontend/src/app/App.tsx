@@ -14,6 +14,7 @@ import EditSearchAgent from "./routes/EditSearchAgent.tsx";
 import SearchAgent from "./routes/SearchAgent.tsx";
 import {QueryIdExists} from "../components/guards/QueryIdExists.tsx";
 import {UserQueriesProvider} from "../context/UserQueriesProvider.tsx";
+import {CategoriesProvider} from "../context/CategoriesProvider.tsx";
 
 function App() {
     return (
@@ -28,14 +29,16 @@ function App() {
                             <Route element={<ProtectedRoute/>}>
                                 <Route element={<NotificationRoute/>}>
                                     <Route element={<UserQueriesProvider/>}>
-                                        <Route path="/" element={<Home/>}/>
-                                        <Route path="/search-agents">
-                                            <Route path="" element={<SearchAgents/>}/>
-                                            <Route path="new" element={<NewSearchAgent/>}/>
-                                            <Route element={<QueryIdExists/>}>
-                                                <Route path=":searchAgentId">
-                                                    <Route path="" element={<SearchAgent/>}/>
-                                                    <Route path="edit" element={<EditSearchAgent/>}/>
+                                        <Route element={<CategoriesProvider/>}>
+                                            <Route path="/" element={<Home/>}/>
+                                            <Route path="/search-agents">
+                                                <Route path="" element={<SearchAgents/>}/>
+                                                <Route path="new" element={<NewSearchAgent/>}/>
+                                                <Route element={<QueryIdExists/>}>
+                                                    <Route path=":searchAgentId">
+                                                        <Route path="" element={<SearchAgent/>}/>
+                                                        <Route path="edit" element={<EditSearchAgent/>}/>
+                                                    </Route>
                                                 </Route>
                                             </Route>
                                         </Route>

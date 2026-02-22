@@ -22,4 +22,3 @@ export const AllSearchAgentsHeadline: React.FC<Props> = ({variant}) => {
         </Stack>
     );
 };
-
