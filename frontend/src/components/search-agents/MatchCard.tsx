@@ -37,7 +37,7 @@ export const MatchCard: React.FC<Props> = ({ match }) => {
                                     sx={{ alignSelf: 'flex-start' }}
                                 />
                                 <Typography variant="caption" color="text.secondary">
-                                    Hochgeladen: {  millisToDateTime(match.uploadedAt.toMillis()) }
+                                    Hochgeladen: {  millisToDateTime(match.uploadedAt.toMillis()) } <br/>
                                     Gefunden nach { millisToDuration(match.foundAt.toMillis() - match.uploadedAt.toMillis()) } um {  millisToDateTime(match.foundAt.toMillis()) }
                                 </Typography>
                             </Stack>
